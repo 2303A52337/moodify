@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Moodify – AI Mood Music</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4ff;
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+    h1 { color: #2c3e50; text-align: center; }
+    textarea, input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
+    button {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      width: 100%;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover { background: #2980b9; }
+    #result {
+      margin-top: 20px;
+      padding: 15px;
+      background: #e8f4fc;
+      border-radius: 5px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎵 Moodify</h1>
+  <p><em>AI recommends Spotify music based on your mood!</em></p>
+
+  <h3>Option 1: Type how you feel</h3>
+  <textarea id="textInput" placeholder="e.g., I'm feeling sad, happy, angry..."></textarea>
+  <button onclick="analyzeText()">Get Playlist from Text</button>
+
+  <h3>Option 2: Upload a selfie (demo only)</h3>
+  <input type="file" id="imageInput" accept="image/*">
+  <button onclick="analyzeImage()">Get Playlist from Photo</button>
+
+  <div id="result">
+    <p><strong>Detected Mood:</strong> <span id="mood"></span></p>
+    <p><a id="playlistLink" href="#" target="_blank">🎧 Open Spotify Playlist</a></p>
+  </div>
+
+  <script>
+    const PLAYLISTS = {
+      joy: "https://open.spotify.com/playlist/37i9dQZF1DXdPec7aLTmlC",
+      sadness: "https://open.spotify.com/playlist/37i9dQZF1DXdFxB6aud8gK",
+      anger: "https://open.spotify.com/playlist/37i9dQZF1DX1s9knjP51Oa",
+      fear: "https://open.spotify.com/playlist/37i9dQZF1DX4H7mY2uF8QG",
+      neutral: "https://open.spotify.com/playlist/37i9dQZF1DX0XUsuxWHRQd",
+      surprise: "https://open.spotify.com/playlist/37i9dQZF1DX4JAvHpjipBk"
+    };
+
+    function getMoodFromText(text) {
+      text = text.toLowerCase();
+      if (text.includes("happy") || text.includes("joy") || text.includes("excited")) return "joy";
+      if (text.includes("sad") || text.includes("depressed") || text.includes("lonely")) return "sadness";
+      if (text.includes("angry") || text.includes("mad") || text.includes("frustrated")) return "anger";
+      if (text.includes("scared") || text.includes("fear") || text.includes("nervous")) return "fear";
+      if (text.includes("surprised") || text.includes("wow")) return "surprise";
+      return "neutral";
+    }
+
+    function analyzeText() {
+      const text = document.getElementById("textInput").value.trim();
+      if (!text) { alert("Please enter text!"); return; }
+      const mood = getMoodFromText(text);
+      showResult(mood);
+    }
+
+    function analyzeImage() {
+      const file = document.getElementById("imageInput").files[0];
+      if (!file) { alert("Please select an image!"); return; }
+      // In real app: send to AI backend. For demo: just pick "surprise"
+      showResult("surprise");
+    }
+
+    function showResult(mood) {
+      document.getElementById("mood").innerText = mood.charAt(0).toUpperCase() + mood.slice(1);
+      document.getElementById("playlistLink").href = PLAYLISTS[mood] || PLAYLISTS.neutral;
+      document.getElementById("result").style.display = "block";
+    }
+  </script>
+</body>
+</html>
