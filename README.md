@@ -1,7 +1,7 @@
 # Moodify – AI-Powered Emotion-Aware Music Recommendation System
 
 Mini Project for SR University – School of Computer Science & AI  
-By: Srinivas (Roll No: 2303A52337)
+By: Sanjay(Roll No: 2303A52337)
 
 ## 🎯 Features
 - Detect emotion from text input (e.g., “I’m stressed”)
