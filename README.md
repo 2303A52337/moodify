@@ -16,6 +16,8 @@ Visit: https://2303a52337.github.io/moodify
 - Simulated AI logic (for academic demo)
 - Spotify Public Playlists
 - GitHub Pages (Hosting)
-
-## 📝 Note
-This is a **mini-project demonstration**. In a full version, AI models (Hugging Face + DeepFace) would run on a backend (e.g., Flask on Render).
+## Backend (AI + Spotify)
+- Built with Flask, Hugging Face (`twitter-roberta-base-emotion`), and DeepFace
+- Emotion detection from text or image
+- Returns public Spotify playlist URL
+- Deployable on Render.com (free tier)
